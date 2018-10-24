@@ -100,8 +100,8 @@ public class Robot extends TimedRobot {
    */
   
   public void teleopPeriodic() {
-    double xSpeed = -xbox.getY();
-    double zRot = xbox.getX();
+    double xSpeed = -xbox.getY(XboxController.Hand.kLeft);
+    double zRot = xbox.getX(XboxController.Hand.kLeft);
     drive.arcadeDrive(xSpeed, zRot);
   }
 
