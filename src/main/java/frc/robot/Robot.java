@@ -7,22 +7,32 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
+ * document
+ * @param <DifferentialDrive>ation. If you change the name of this class or the package after
  * creating this project, you must also update the build.gradle file in the
- * project.
+ * project.<DifferentialDrive>
  */
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  Spark left = new Spark(0);
+  Spark right = new Spark(1);
+  DifferentialDrive drive = new DifferentialDrive(left, right);
+  XboxController xbox = new XboxController(1);
+// PowerDistributionPanel panel = new PowerDistributionPanel(1);
 
   /**
    * This function is run when the robot is first started up and should be
@@ -85,7 +95,14 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
+  /**
+   * 
+   */
+  
   public void teleopPeriodic() {
+    double xSpeed = -xbox.getY();
+    double zRot = xbox.getX();
+    drive.arcadeDrive(xSpeed, zRot);
   }
 
   /**
@@ -93,5 +110,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    double xSpeed = -xbox.getY();
+    double zRot = xbox.getX();
+    drive.arcadeDrive(xSpeed, zRot);
   }
 }
